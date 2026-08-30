@@ -8,18 +8,13 @@ import com.applovin.sdk.AppLovinPrivacySettings
 
 /**
  * An [android.app.Activity] for testing the AppLovin regulatory APIs (GDPR consent and CCPA
- * do-not-sell). Each setting has three states: Not Set, No (false), Yes (true).
- * Tap "Reset All to Not Set" to clear the AppLovin SDK's stored consent values so adapters
- * receive null on the next ad load. Note: the SDK caches these values at launch, so they persist
- * across sessions until explicitly reset here.
+ * do-not-sell). Each setting has two states: No (false) and Yes (true).
+ * The AppLovin SDK has no public "unset" API — once a value is set it persists until the app is
+ * reinstalled or app data is cleared. To test the "Not Set" state (adapter receives null),
+ * reinstall the app.
  */
 class PrivacySettingsActivity : AppCompatActivity()
 {
-    // SharedPreferences keys written by the AppLovin SDK for consent persistence.
-    private val consentKey   = "com.applovin.sdk.compliance.has_user_consent"
-    private val doNotSellKey = "com.applovin.sdk.compliance.is_do_not_sell"
-    private val prefsFileName = "com.applovin.sdk"
-
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -30,7 +25,6 @@ class PrivacySettingsActivity : AppCompatActivity()
         val consentStatus = findViewById<TextView>(R.id.consentStatusTextView)
         val doNotSellGroup = findViewById<RadioGroup>(R.id.doNotSellRadioGroup)
         val doNotSellStatus = findViewById<TextView>(R.id.doNotSellStatusTextView)
-        val resetButton = findViewById<android.widget.Button>(R.id.resetButton)
 
         refreshUI(consentGroup, consentStatus, doNotSellGroup, doNotSellStatus)
 
@@ -51,12 +45,6 @@ class PrivacySettingsActivity : AppCompatActivity()
             }
             refreshUI(consentGroup, consentStatus, doNotSellGroup, doNotSellStatus)
         }
-
-        resetButton.setOnClickListener {
-            getSharedPreferences(prefsFileName, MODE_PRIVATE)
-                .edit().remove(consentKey).remove(doNotSellKey).apply()
-            refreshUI(consentGroup, consentStatus, doNotSellGroup, doNotSellStatus)
-        }
     }
 
     private fun refreshUI(
@@ -66,23 +54,17 @@ class PrivacySettingsActivity : AppCompatActivity()
         doNotSellStatus: TextView
     )
     {
-        val consentSet = AppLovinPrivacySettings.isUserConsentSet()
-        consentGroup.findViewById<android.widget.RadioButton>(R.id.consentNotSet).isEnabled = !consentSet
-        consentGroup.check(
-            if (!consentSet) R.id.consentNotSet
-            else if (AppLovinPrivacySettings.hasUserConsent()) R.id.consentYes
-            else R.id.consentNo
-        )
-        updateStatus(consentStatus, consentSet, AppLovinPrivacySettings.hasUserConsent())
+        if (AppLovinPrivacySettings.isUserConsentSet())
+            consentGroup.check(if (AppLovinPrivacySettings.hasUserConsent()) R.id.consentYes else R.id.consentNo)
+        else
+            consentGroup.clearCheck()
+        updateStatus(consentStatus, AppLovinPrivacySettings.isUserConsentSet(), AppLovinPrivacySettings.hasUserConsent())
 
-        val doNotSellSet = AppLovinPrivacySettings.isDoNotSellSet()
-        doNotSellGroup.findViewById<android.widget.RadioButton>(R.id.doNotSellNotSet).isEnabled = !doNotSellSet
-        doNotSellGroup.check(
-            if (!doNotSellSet) R.id.doNotSellNotSet
-            else if (AppLovinPrivacySettings.isDoNotSell()) R.id.doNotSellYes
-            else R.id.doNotSellNo
-        )
-        updateStatus(doNotSellStatus, doNotSellSet, AppLovinPrivacySettings.isDoNotSell())
+        if (AppLovinPrivacySettings.isDoNotSellSet())
+            doNotSellGroup.check(if (AppLovinPrivacySettings.isDoNotSell()) R.id.doNotSellYes else R.id.doNotSellNo)
+        else
+            doNotSellGroup.clearCheck()
+        updateStatus(doNotSellStatus, AppLovinPrivacySettings.isDoNotSellSet(), AppLovinPrivacySettings.isDoNotSell())
     }
 
     private fun updateStatus(statusTextView: TextView, isSet: Boolean, value: Boolean)

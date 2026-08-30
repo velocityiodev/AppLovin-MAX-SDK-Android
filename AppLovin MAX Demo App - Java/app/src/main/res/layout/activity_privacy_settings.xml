@@ -19,13 +19,6 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/consentNotSet"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/privacy_option_not_set" />
-
-        <RadioButton
             android:id="@+id/consentNo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -64,13 +57,6 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/doNotSellNotSet"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/privacy_option_not_set" />
-
-        <RadioButton
             android:id="@+id/doNotSellNo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -101,14 +87,5 @@
         android:text="@string/privacy_settings_note"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="13sp" />
-
-    <Button
-        android:id="@+id/resetButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#CC0000"
-        android:text="@string/privacy_reset_button"
-        android:textColor="#FFFFFF" />
 
 </LinearLayout>

@@ -9,13 +9,11 @@
     <string name="activity_privacy_settings">Privacy Settings</string>
     <string name="privacy_consent_title">Has User Consent (GDPR)</string>
     <string name="privacy_do_not_sell_title">Do Not Sell (CCPA)</string>
-    <string name="privacy_option_not_set">Not Set</string>
     <string name="privacy_option_no">No</string>
     <string name="privacy_option_yes">Yes</string>
     <string name="privacy_status_set">Currently set to %s</string>
-    <string name="privacy_status_not_set">Not set — MAX will pass nil/absent to adapters</string>
-    <string name="privacy_settings_note">Values are forwarded to network adapters with the next ad load. Tap Reset to clear stored consent and return both flags to Not Set (adapter receives null). Note: the AppLovin SDK caches these values at launch, so they persist across sessions until explicitly reset here.</string>
-    <string name="privacy_reset_button">Reset All to Not Set</string>
+    <string name="privacy_status_not_set">Not set — adapter receives null</string>
+    <string name="privacy_settings_note">Values are forwarded to network adapters with the next ad load. The AppLovin SDK has no public API to unset a value once stored — to test the Not Set state (adapter receives null), reinstall the app or clear its data.</string>
     <string name="activity_layout_editor_banners">Layout Editor Banner Ads</string>
     <string name="activity_layout_editor_mrecs">Layout Editor MREC Ads</string>
     <string name="activity_programmatic_mrecs">Programmatic MREC Ads</string>
