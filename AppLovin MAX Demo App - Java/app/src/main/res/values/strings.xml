@@ -15,6 +15,7 @@
     <string name="privacy_status_set">Currently set to %s</string>
     <string name="privacy_status_not_set">Not set — MAX will pass nil/absent to adapters</string>
     <string name="privacy_settings_note">Values are stored by the AppLovin SDK and forwarded to network adapters with the next ad load. Load any ad after toggling to verify the adapter receives the new values.</string>
+    <string name="privacy_reset_button">Reset All to Not Set</string>
     <string name="activity_layout_editor_banners">Layout Editor Banner Ads</string>
     <string name="activity_layout_editor_mrecs">Layout Editor MREC Ads</string>
     <string name="activity_programmatic_mrecs">Programmatic MREC Ads</string>
