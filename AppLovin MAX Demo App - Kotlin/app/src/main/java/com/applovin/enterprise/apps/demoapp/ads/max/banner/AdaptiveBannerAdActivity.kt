@@ -10,35 +10,39 @@ import com.applovin.enterprise.apps.demoapp.R
 
 import com.applovin.enterprise.apps.demoapp.ui.BaseAdActivity
 import com.applovin.mediation.MaxAd
+import com.applovin.mediation.MaxAdFormat
 import com.applovin.mediation.MaxAdRevenueListener
 import com.applovin.mediation.MaxAdViewAdListener
+import com.applovin.mediation.MaxAdViewConfiguration
 import com.applovin.mediation.MaxError
 import com.applovin.mediation.ads.MaxAdView
 import com.applovin.sdk.AppLovinSdkUtils
 
 /**
- * A [android.app.Activity] to show AppLovin MAX banner ads.
- * <p>
- * Created by Harry Arakkal on 9/17/2019
+ * A [android.app.Activity] to show AppLovin MAX adaptive banner ads.
  */
-class ProgrammaticBannerAdActivity : BaseAdActivity(),
+class AdaptiveBannerAdActivity : BaseAdActivity(),
         MaxAdViewAdListener, MaxAdRevenueListener {
     private lateinit var adView: MaxAdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_programmatic_banner_ad)
-        setTitle(R.string.activity_programmatic_banners)
+        setTitle(R.string.activity_adaptive_banners)
 
         setupCallbacksRecyclerView()
 
-        adView = MaxAdView("cc8444b19cff9bda", this)
+        val configuration = MaxAdViewConfiguration.builder()
+                .setAdaptiveType(MaxAdViewConfiguration.AdaptiveType.ANCHORED)
+                .build()
+        adView = MaxAdView("06f89bd35c0d5a8c", configuration)
 
         adView.setListener(this)
         adView.setRevenueListener(this)
 
-        val isTablet = AppLovinSdkUtils.isTablet(this)
-        val heightPx = AppLovinSdkUtils.dpToPx(this, if (isTablet) 90 else 50)
+        // Anchored adaptive banners span the full width; the SDK computes the height for the current device.
+        val heightDp = MaxAdFormat.BANNER.getAdaptiveSize(this).height
+        val heightPx = AppLovinSdkUtils.dpToPx(this, heightDp)
 
         adView.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, heightPx)
         adView.setBackgroundColor(Color.BLACK)

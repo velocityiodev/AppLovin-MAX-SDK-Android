@@ -32,7 +32,7 @@ class JetpackComposeMrecAdActivity : BaseJetpackComposeAdActivity() {
                 horizontalAlignment = Alignment.CenterHorizontally
             )
             {
-                MaxAdViewComposable("YOUR_AD_UNIT_ID", MaxAdFormat.MREC, mrecViewModel)
+                MaxAdViewComposable("d487d94bad48d798", MaxAdFormat.MREC, mrecViewModel)
                 ListCallbacks()
             }
         }

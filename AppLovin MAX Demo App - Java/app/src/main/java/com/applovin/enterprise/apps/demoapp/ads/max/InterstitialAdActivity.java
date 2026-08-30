@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAdRevenue;
-import com.adjust.sdk.AdjustConfig;
 import com.applovin.enterprise.apps.demoapp.R;
 import com.applovin.enterprise.apps.demoapp.ui.BaseAdActivity;
 import com.applovin.mediation.MaxAd;
@@ -40,7 +39,7 @@ public class InterstitialAdActivity
 
         setupCallbacksRecyclerView();
 
-        interstitialAd = new MaxInterstitialAd( "YOUR_AD_UNIT_ID", this );
+        interstitialAd = new MaxInterstitialAd( "03c95df417312d2f", this );
 
         interstitialAd.setListener( this );
         interstitialAd.setRevenueListener( this );
@@ -131,7 +130,7 @@ public class InterstitialAdActivity
     {
         logCallback();
 
-        AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue( AdjustConfig.AD_REVENUE_APPLOVIN_MAX );
+        AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue( "applovin_max_sdk" );
         adjustAdRevenue.setRevenue( maxAd.getRevenue(), "USD" );
         adjustAdRevenue.setAdRevenueNetwork( maxAd.getNetworkName() );
         adjustAdRevenue.setAdRevenueUnit( maxAd.getAdUnitId() );

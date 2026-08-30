@@ -6,7 +6,6 @@ import android.widget.Button
 import android.widget.FrameLayout
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustAdRevenue
-import com.adjust.sdk.AdjustConfig
 import com.applovin.enterprise.apps.demoapp.R
 import com.applovin.enterprise.apps.demoapp.ui.BaseAdActivity
 import com.applovin.mediation.MaxAd
@@ -33,12 +32,12 @@ class ManualNativeLateBindingAdActivity : BaseAdActivity() {
         showAdButton = findViewById(R.id.show_ad_button)
         setupCallbacksRecyclerView()
 
-        nativeAdLoader = MaxNativeAdLoader("YOUR_AD_UNIT_ID", this)
+        nativeAdLoader = MaxNativeAdLoader("fbca8f772f36695f", this)
         nativeAdLoader.setRevenueListener(object : MaxAdRevenueListener {
             override fun onAdRevenuePaid(ad: MaxAd) {
                 logAnonymousCallback()
 
-                val adjustAdRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_APPLOVIN_MAX)
+                val adjustAdRevenue = AdjustAdRevenue("applovin_max_sdk")
                 adjustAdRevenue.setRevenue(ad.revenue, "USD")
                 adjustAdRevenue.setAdRevenueNetwork(ad.networkName)
                 adjustAdRevenue.setAdRevenueUnit(ad.adUnitId)

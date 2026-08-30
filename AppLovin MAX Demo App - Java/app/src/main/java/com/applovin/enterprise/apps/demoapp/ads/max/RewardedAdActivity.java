@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAdRevenue;
-import com.adjust.sdk.AdjustConfig;
 import com.applovin.enterprise.apps.demoapp.R;
 import com.applovin.enterprise.apps.demoapp.ui.BaseAdActivity;
 import com.applovin.mediation.MaxAd;
@@ -41,7 +40,7 @@ public class RewardedAdActivity
 
         setupCallbacksRecyclerView();
 
-        rewardedAd = MaxRewardedAd.getInstance( "YOUR_AD_UNIT_ID", this );
+        rewardedAd = MaxRewardedAd.getInstance( "ea72031813a73e9f", this );
 
         rewardedAd.setListener( this );
         rewardedAd.setRevenueListener( this );
@@ -139,7 +138,7 @@ public class RewardedAdActivity
     {
         logCallback();
 
-        AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue( AdjustConfig.AD_REVENUE_APPLOVIN_MAX );
+        AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue( "applovin_max_sdk" );
         adjustAdRevenue.setRevenue( maxAd.getRevenue(), "USD" );
         adjustAdRevenue.setAdRevenueNetwork( maxAd.getNetworkName() );
         adjustAdRevenue.setAdRevenueUnit( maxAd.getAdUnitId() );

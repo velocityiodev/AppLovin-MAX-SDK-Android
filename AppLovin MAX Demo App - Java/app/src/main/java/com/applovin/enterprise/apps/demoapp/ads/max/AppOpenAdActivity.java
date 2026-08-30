@@ -5,7 +5,6 @@ import android.view.View;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAdRevenue;
-import com.adjust.sdk.AdjustConfig;
 import com.applovin.enterprise.apps.demoapp.R;
 import com.applovin.enterprise.apps.demoapp.ui.BaseAdActivity;
 import com.applovin.mediation.MaxAd;
@@ -101,7 +100,7 @@ public class AppOpenAdActivity
     {
         logCallback();
 
-        AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue( AdjustConfig.AD_REVENUE_APPLOVIN_MAX );
+        AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue( "applovin_max_sdk" );
         adjustAdRevenue.setRevenue( ad.getRevenue(), "USD" );
         adjustAdRevenue.setAdRevenueNetwork( ad.getNetworkName() );
         adjustAdRevenue.setAdRevenueUnit( ad.getAdUnitId() );

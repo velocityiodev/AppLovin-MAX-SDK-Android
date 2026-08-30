@@ -5,7 +5,6 @@ import android.os.Handler
 import android.view.View
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustAdRevenue
-import com.adjust.sdk.AdjustConfig
 import com.applovin.enterprise.apps.demoapp.R
 
 import com.applovin.enterprise.apps.demoapp.ui.BaseAdActivity
@@ -32,7 +31,8 @@ class RewardedAdActivity : BaseAdActivity(),
 
         setupCallbacksRecyclerView()
 
-        rewardedAd = MaxRewardedAd.getInstance("YOUR_AD_UNIT_ID", this)
+        // TODO: Replace with your Velocity rewarded MAX ad unit ID from the AppLovin dashboard.
+        rewardedAd = MaxRewardedAd.getInstance("ea72031813a73e9f", this)
 
         rewardedAd.setListener(this)
         rewardedAd.setRevenueListener(this)
@@ -108,7 +108,7 @@ class RewardedAdActivity : BaseAdActivity(),
     override fun onAdRevenuePaid(ad: MaxAd) {
         logCallback()
 
-        val adjustAdRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_APPLOVIN_MAX)
+        val adjustAdRevenue = AdjustAdRevenue("applovin_max_sdk")
         adjustAdRevenue.setRevenue(ad.revenue, "USD")
         adjustAdRevenue.setAdRevenueNetwork(ad.networkName)
         adjustAdRevenue.setAdRevenueUnit(ad.adUnitId)

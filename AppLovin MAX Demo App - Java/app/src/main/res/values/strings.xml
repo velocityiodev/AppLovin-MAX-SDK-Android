@@ -5,6 +5,16 @@
     <string name="activity_app_open">App Open Ads</string>
     <string name="activity_rewarded">Rewarded Ads</string>
     <string name="activity_programmatic_banners">Programmatic Banner Ads</string>
+    <string name="activity_adaptive_banners">Adaptive Banner Ads</string>
+    <string name="activity_privacy_settings">Privacy Settings</string>
+    <string name="privacy_consent_title">Has User Consent (GDPR)</string>
+    <string name="privacy_do_not_sell_title">Do Not Sell (CCPA)</string>
+    <string name="privacy_option_not_set">Not Set</string>
+    <string name="privacy_option_no">No</string>
+    <string name="privacy_option_yes">Yes</string>
+    <string name="privacy_status_set">Currently set to %s</string>
+    <string name="privacy_status_not_set">Not set — MAX will pass nil/absent to adapters</string>
+    <string name="privacy_settings_note">Values are stored by the AppLovin SDK and forwarded to network adapters with the next ad load. Load any ad after toggling to verify the adapter receives the new values.</string>
     <string name="activity_layout_editor_banners">Layout Editor Banner Ads</string>
     <string name="activity_layout_editor_mrecs">Layout Editor MREC Ads</string>
     <string name="activity_programmatic_mrecs">Programmatic MREC Ads</string>

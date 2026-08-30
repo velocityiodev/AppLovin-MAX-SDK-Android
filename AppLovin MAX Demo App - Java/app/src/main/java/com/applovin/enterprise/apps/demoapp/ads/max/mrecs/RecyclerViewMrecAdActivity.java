@@ -66,7 +66,7 @@ public class RecyclerViewMrecAdActivity
 
         for ( int i = 0; i < AD_VIEW_COUNT; i++ )
         {
-            MaxAdView adView = new MaxAdView( "YOUR_AD_UNIT_ID", MaxAdFormat.MREC, this );
+            MaxAdView adView = new MaxAdView( "d487d94bad48d798", MaxAdFormat.MREC, this );
             adView.setListener( this );
 
             // Set this extra parameter to work around SDK bug that ignores calls to stopAutoRefresh()

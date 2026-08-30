@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAdRevenue;
-import com.adjust.sdk.AdjustConfig;
 import com.applovin.enterprise.apps.demoapp.R;
 import com.applovin.enterprise.apps.demoapp.ui.BaseAdActivity;
 import com.applovin.mediation.MaxAd;
@@ -88,7 +87,7 @@ public class LayoutEditorMrecAdActivity
     {
         logCallback();
 
-        AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue( AdjustConfig.AD_REVENUE_APPLOVIN_MAX );
+        AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue( "applovin_max_sdk" );
         adjustAdRevenue.setRevenue( maxAd.getRevenue(), "USD" );
         adjustAdRevenue.setAdRevenueNetwork( maxAd.getNetworkName() );
         adjustAdRevenue.setAdRevenueUnit( maxAd.getAdUnitId() );

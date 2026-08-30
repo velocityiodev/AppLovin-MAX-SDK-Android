@@ -16,7 +16,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.ViewModel
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustAdRevenue
-import com.adjust.sdk.AdjustConfig
 import com.applovin.enterprise.apps.demoapp.ui.BaseJetpackComposeAdActivity
 import com.applovin.mediation.MaxAd
 import com.applovin.mediation.MaxAdFormat
@@ -67,7 +66,7 @@ class MaxAdViewComposableViewModel(baseActivity: BaseJetpackComposeAdActivity) :
         override fun onAdRevenuePaid(ad: MaxAd) {
             baseActivity.logCallback()
 
-            val adjustAdRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_APPLOVIN_MAX)
+            val adjustAdRevenue = AdjustAdRevenue("applovin_max_sdk")
             adjustAdRevenue.setRevenue(ad.revenue, "USD")
             adjustAdRevenue.setAdRevenueNetwork(ad.networkName)
             adjustAdRevenue.setAdRevenueUnit(ad.adUnitId)

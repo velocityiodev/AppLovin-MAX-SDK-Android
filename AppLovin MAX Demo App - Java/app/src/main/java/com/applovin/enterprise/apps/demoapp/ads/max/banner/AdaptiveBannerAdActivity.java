@@ -10,8 +10,10 @@ import com.adjust.sdk.AdjustAdRevenue;
 import com.applovin.enterprise.apps.demoapp.R;
 import com.applovin.enterprise.apps.demoapp.ui.BaseAdActivity;
 import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxAdFormat;
 import com.applovin.mediation.MaxAdRevenueListener;
 import com.applovin.mediation.MaxAdViewAdListener;
+import com.applovin.mediation.MaxAdViewConfiguration;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxAdView;
 import com.applovin.sdk.AppLovinSdkUtils;
@@ -19,11 +21,9 @@ import com.applovin.sdk.AppLovinSdkUtils;
 import androidx.annotation.NonNull;
 
 /**
- * An {@link android.app.Activity} used to show AppLovin MAX banner ads.
- * <p>
- * Created by santoshbagadi on 2019-09-10.
+ * An {@link android.app.Activity} used to show AppLovin MAX adaptive banner ads.
  */
-public class ProgrammaticBannerAdActivity
+public class AdaptiveBannerAdActivity
         extends BaseAdActivity
         implements MaxAdViewAdListener, MaxAdRevenueListener
 {
@@ -34,19 +34,21 @@ public class ProgrammaticBannerAdActivity
     {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_programmatic_banner_ad );
-        setTitle( R.string.activity_programmatic_banners );
+        setTitle( R.string.activity_adaptive_banners );
 
         setupCallbacksRecyclerView();
 
-        adView = new MaxAdView( "cc8444b19cff9bda", this );
+        MaxAdViewConfiguration configuration = MaxAdViewConfiguration.builder()
+                .setAdaptiveType( MaxAdViewConfiguration.AdaptiveType.ANCHORED )
+                .build();
+        adView = new MaxAdView( "06f89bd35c0d5a8c", configuration );
 
         adView.setListener( this );
         adView.setRevenueListener( this );
 
-        // Set the height of the banner ad based on the device type.
-        final boolean isTablet = AppLovinSdkUtils.isTablet( this );
-        final int heightPx = AppLovinSdkUtils.dpToPx( this, isTablet ? 90 : 50 );
-        // Banner width must match the screen to be fully functional.
+        // Anchored adaptive banners span the full width; the SDK computes the height for the current device.
+        final int heightDp = MaxAdFormat.BANNER.getAdaptiveSize( this ).getHeight();
+        final int heightPx = AppLovinSdkUtils.dpToPx( this, heightDp );
         adView.setLayoutParams( new FrameLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, heightPx ) );
 
         // Need to set the background or background color for banners to be fully functional.

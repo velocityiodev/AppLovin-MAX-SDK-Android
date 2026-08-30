@@ -7,7 +7,6 @@ import android.widget.FrameLayout;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAdRevenue;
-import com.adjust.sdk.AdjustConfig;
 import com.applovin.enterprise.apps.demoapp.R;
 import com.applovin.enterprise.apps.demoapp.ui.BaseAdActivity;
 import com.applovin.mediation.MaxAd;
@@ -39,11 +38,11 @@ public class ManualNativeLateBindingAdActivity
         showAdButton = findViewById( R.id.show_ad_button );
         setupCallbacksRecyclerView();
 
-        nativeAdLoader = new MaxNativeAdLoader( "YOUR_AD_UNIT_ID", this );
+        nativeAdLoader = new MaxNativeAdLoader( "fbca8f772f36695f", this );
         nativeAdLoader.setRevenueListener( ad -> {
             logAnonymousCallback();
 
-            AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue( AdjustConfig.AD_REVENUE_APPLOVIN_MAX );
+            AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue( "applovin_max_sdk" );
             adjustAdRevenue.setRevenue( ad.getRevenue(), "USD" );
             adjustAdRevenue.setAdRevenueNetwork( ad.getNetworkName() );
             adjustAdRevenue.setAdRevenueUnit( ad.getAdUnitId() );

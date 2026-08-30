@@ -13,6 +13,7 @@ public class BannerAdActivity
     {
         DemoMenuItem[] result = {
                 new DemoMenuItem( "Programmatic Banners", new Intent( this, ProgrammaticBannerAdActivity.class ) ),
+                new DemoMenuItem( "Adaptive Banners", new Intent( this, AdaptiveBannerAdActivity.class ) ),
                 new DemoMenuItem( "Layout Editor Banners", new Intent( this, LayoutEditorBannerAdActivity.class ) ),
         };
         return result;

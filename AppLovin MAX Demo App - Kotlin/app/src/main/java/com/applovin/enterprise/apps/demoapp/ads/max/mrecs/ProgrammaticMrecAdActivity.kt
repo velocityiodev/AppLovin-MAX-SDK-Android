@@ -7,7 +7,6 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.ViewCompat
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustAdRevenue
-import com.adjust.sdk.AdjustConfig
 import com.applovin.enterprise.apps.demoapp.R
 import com.applovin.enterprise.apps.demoapp.ui.BaseAdActivity
 import com.applovin.mediation.*
@@ -29,7 +28,7 @@ class ProgrammaticMrecAdActivity : BaseAdActivity(), MaxAdViewAdListener, MaxAdR
 
         setupCallbacksRecyclerView()
 
-        adView = MaxAdView("YOUR_AD_UNIT_ID", MaxAdFormat.MREC, this)
+        adView = MaxAdView("d487d94bad48d798", MaxAdFormat.MREC, this)
 
         adView.setListener(this)
         adView.setRevenueListener(this)
@@ -117,7 +116,7 @@ class ProgrammaticMrecAdActivity : BaseAdActivity(), MaxAdViewAdListener, MaxAdR
     override fun onAdRevenuePaid(ad: MaxAd) {
         logCallback()
 
-        val adjustAdRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_APPLOVIN_MAX)
+        val adjustAdRevenue = AdjustAdRevenue("applovin_max_sdk")
         adjustAdRevenue.setRevenue(ad.revenue, "USD")
         adjustAdRevenue.setAdRevenueNetwork(ad.networkName)
         adjustAdRevenue.setAdRevenueUnit(ad.adUnitId)

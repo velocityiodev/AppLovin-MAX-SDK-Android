@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.FrameLayout
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustAdRevenue
-import com.adjust.sdk.AdjustConfig
 import com.applovin.enterprise.apps.demoapp.R
 import com.applovin.enterprise.apps.demoapp.ui.BaseAdActivity
 import com.applovin.mediation.MaxAd
@@ -43,12 +42,13 @@ class ManualNativeAdActivity : BaseAdActivity() {
                 .build()
         nativeAdView = MaxNativeAdView(binder, this)
 
-        nativeAdLoader = MaxNativeAdLoader("YOUR_AD_UNIT_ID", this)
+        // TODO: Replace with your Velocity native MAX ad unit ID from the AppLovin dashboard.
+        nativeAdLoader = MaxNativeAdLoader("fbca8f772f36695f", this)
         nativeAdLoader.setRevenueListener(object : MaxAdRevenueListener {
             override fun onAdRevenuePaid(ad: MaxAd) {
                 logCallback()
 
-                val adjustAdRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_APPLOVIN_MAX)
+                val adjustAdRevenue = AdjustAdRevenue("applovin_max_sdk")
                 adjustAdRevenue.setRevenue(ad.revenue, "USD")
                 adjustAdRevenue.setAdRevenueNetwork(ad.networkName)
                 adjustAdRevenue.setAdRevenueUnit(ad.adUnitId)

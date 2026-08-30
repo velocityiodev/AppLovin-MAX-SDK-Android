@@ -49,7 +49,7 @@ class RecyclerViewMrecAdActivity : AppCompatActivity(), MaxAdViewAdListener {
         }
 
         for (i in 0 until AD_VIEW_COUNT) {
-            val adView = MaxAdView("YOUR_AD_UNIT_ID", MaxAdFormat.MREC, this)
+            val adView = MaxAdView("d487d94bad48d798", MaxAdFormat.MREC, this)
             adView.setListener(this)
 
             // Set this extra parameter to work around SDK bug that ignores calls to stopAutoRefresh()

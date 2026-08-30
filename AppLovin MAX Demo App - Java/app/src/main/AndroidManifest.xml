@@ -39,12 +39,20 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:parentActivityName="com.applovin.enterprise.apps.demoapp.MainActivity" />
         <activity
+            android:name="com.applovin.enterprise.apps.demoapp.PrivacySettingsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName="com.applovin.enterprise.apps.demoapp.MainActivity" />
+        <activity
             android:name="com.applovin.enterprise.apps.demoapp.ads.max.banner.BannerAdActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="Banners"
             android:parentActivityName="com.applovin.enterprise.apps.demoapp.MainActivity" />
         <activity
             android:name="com.applovin.enterprise.apps.demoapp.ads.max.banner.ProgrammaticBannerAdActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName="com.applovin.enterprise.apps.demoapp.MainActivity" />
+        <activity
+            android:name="com.applovin.enterprise.apps.demoapp.ads.max.banner.AdaptiveBannerAdActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:parentActivityName="com.applovin.enterprise.apps.demoapp.MainActivity" />
         <activity

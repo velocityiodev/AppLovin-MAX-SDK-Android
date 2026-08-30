@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.applovin.enterprise.apps.demoapp.R;
 import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.nativeAds.MaxNativeAdViewBinder;
 import com.applovin.mediation.nativeAds.adPlacer.MaxAdPlacer;
 import com.applovin.mediation.nativeAds.adPlacer.MaxAdPlacerSettings;
 import com.applovin.mediation.nativeAds.adPlacer.MaxRecyclerAdapter;
@@ -38,7 +39,7 @@ public class RecyclerViewNativeAdActivity
         CustomRecyclerAdapter originalAdapter = new CustomRecyclerAdapter( this, sampleData );
 
         // Configure ad adapter
-        MaxAdPlacerSettings settings = new MaxAdPlacerSettings( "YOUR_AD_UNIT_ID" );
+        MaxAdPlacerSettings settings = new MaxAdPlacerSettings( "fbca8f772f36695f" );
         settings.addFixedPosition( 2 );
         settings.addFixedPosition( 8 );
         settings.setRepeatingInterval( 6 );
@@ -46,6 +47,23 @@ public class RecyclerViewNativeAdActivity
         // If using custom views, you must also set the nativeAdViewBinder on the adapter
 
         adAdapter = new MaxRecyclerAdapter( settings, originalAdapter, this );
+
+        // Velocity Ads is a custom network, so MAX does not deliver pre-rendered template views —
+        // the ad placer requires a custom view binder plus an explicit ad size to render ads.
+        MaxNativeAdViewBinder binder = new MaxNativeAdViewBinder.Builder( R.layout.native_custom_ad_view )
+                .setTitleTextViewId( R.id.title_text_view )
+                .setBodyTextViewId( R.id.body_text_view )
+                .setAdvertiserTextViewId( R.id.advertiser_text_view )
+                .setIconImageViewId( R.id.icon_image_view )
+                .setMediaContentViewGroupId( R.id.media_view_container )
+                .setOptionsContentViewGroupId( R.id.options_view )
+                .setStarRatingContentViewGroupId( R.id.star_rating_view )
+                .setCallToActionButtonId( R.id.cta_button )
+                .build();
+        adAdapter.getAdPlacer().setNativeAdViewBinder( binder );
+        // Negative values are used verbatim as LayoutParams (MATCH_PARENT width, WRAP_CONTENT height).
+        adAdapter.getAdPlacer().setAdSize( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+
         adAdapter.setListener( new MaxAdPlacer.Listener()
         {
             @Override
