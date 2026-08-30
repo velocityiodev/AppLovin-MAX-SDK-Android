@@ -17,6 +17,14 @@ class GlobalApplication : Application() {
         // TODO: Replace with your MAX SDK key from the AppLovin dashboard, and update applicationId in app/build.gradle to match.
         val YOUR_SDK_KEY = "FJz18KTsZXDLh7BWRL6pdsEGJ9EneQnoubC7i0mfGMBoALugoZryZune5cIQMb3knWULUwD7OCVqyiE2xC_bbN"
 
+        // Reset persisted privacy flags at session start so the AppLovin SDK initialises without
+        // stale consent state and adapters receive null for both flags on every fresh launch.
+        // Use the Privacy Settings screen during the session to test specific consent states.
+        getSharedPreferences("com.applovin.sdk", MODE_PRIVATE).edit()
+            .remove("com.applovin.sdk.compliance.has_user_consent")
+            .remove("com.applovin.sdk.compliance.is_do_not_sell")
+            .apply()
+
         val executor = Executors.newSingleThreadExecutor();
         executor.execute {
 
