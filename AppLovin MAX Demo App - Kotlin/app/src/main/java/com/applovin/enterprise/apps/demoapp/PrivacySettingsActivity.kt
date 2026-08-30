@@ -9,11 +9,17 @@ import com.applovin.sdk.AppLovinPrivacySettings
 /**
  * An [android.app.Activity] for testing the AppLovin regulatory APIs (GDPR consent and CCPA
  * do-not-sell). Each setting has three states: Not Set, No (false), Yes (true).
- * Privacy flags are cleared automatically on every app launch; values set here persist for the
- * current session only and are forwarded to network adapters with the next ad load.
+ * Tap "Reset All to Not Set" to clear the AppLovin SDK's stored consent values so adapters
+ * receive null on the next ad load. Note: the SDK caches these values at launch, so they persist
+ * across sessions until explicitly reset here.
  */
 class PrivacySettingsActivity : AppCompatActivity()
 {
+    // SharedPreferences keys written by the AppLovin SDK for consent persistence.
+    private val consentKey   = "com.applovin.sdk.compliance.has_user_consent"
+    private val doNotSellKey = "com.applovin.sdk.compliance.is_do_not_sell"
+    private val prefsFileName = "com.applovin.sdk"
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -24,6 +30,7 @@ class PrivacySettingsActivity : AppCompatActivity()
         val consentStatus = findViewById<TextView>(R.id.consentStatusTextView)
         val doNotSellGroup = findViewById<RadioGroup>(R.id.doNotSellRadioGroup)
         val doNotSellStatus = findViewById<TextView>(R.id.doNotSellStatusTextView)
+        val resetButton = findViewById<android.widget.Button>(R.id.resetButton)
 
         refreshUI(consentGroup, consentStatus, doNotSellGroup, doNotSellStatus)
 
@@ -42,6 +49,12 @@ class PrivacySettingsActivity : AppCompatActivity()
                 R.id.doNotSellNo  -> AppLovinPrivacySettings.setDoNotSell(false)
                 R.id.doNotSellYes -> AppLovinPrivacySettings.setDoNotSell(true)
             }
+            refreshUI(consentGroup, consentStatus, doNotSellGroup, doNotSellStatus)
+        }
+
+        resetButton.setOnClickListener {
+            getSharedPreferences(prefsFileName, MODE_PRIVATE)
+                .edit().remove(consentKey).remove(doNotSellKey).apply()
             refreshUI(consentGroup, consentStatus, doNotSellGroup, doNotSellStatus)
         }
     }

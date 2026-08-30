@@ -14,7 +14,8 @@
     <string name="privacy_option_yes">Yes</string>
     <string name="privacy_status_set">Currently set to %s</string>
     <string name="privacy_status_not_set">Not set — MAX will pass nil/absent to adapters</string>
-    <string name="privacy_settings_note">Values are forwarded to network adapters with the next ad load. Privacy flags are cleared automatically on every app launch — set them here to test a specific consent state for the current session.</string>
+    <string name="privacy_settings_note">Values are forwarded to network adapters with the next ad load. Tap Reset to clear stored consent and return both flags to Not Set (adapter receives null). Note: the AppLovin SDK caches these values at launch, so they persist across sessions until explicitly reset here.</string>
+    <string name="privacy_reset_button">Reset All to Not Set</string>
     <string name="activity_layout_editor_banners">Layout Editor Banner Ads</string>
     <string name="activity_layout_editor_mrecs">Layout Editor MREC Ads</string>
     <string name="activity_programmatic_mrecs">Programmatic MREC Ads</string>

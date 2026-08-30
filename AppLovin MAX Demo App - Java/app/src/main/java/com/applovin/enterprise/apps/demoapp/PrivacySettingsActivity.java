@@ -12,12 +12,17 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * An {@link android.app.Activity} for testing the AppLovin regulatory APIs (GDPR consent and
  * CCPA do-not-sell). Each setting has three states: Not Set, No (false), Yes (true).
- * Privacy flags are cleared automatically on every app launch; values set here persist for the
- * current session only and are forwarded to network adapters with the next ad load.
+ * Tap "Reset All to Not Set" to clear the AppLovin SDK's stored consent values so adapters
+ * receive null on the next ad load. Note: the SDK caches these values at launch, so they persist
+ * across sessions until explicitly reset here.
  */
 public class PrivacySettingsActivity
         extends AppCompatActivity
 {
+    private static final String CONSENT_KEY    = "com.applovin.sdk.compliance.has_user_consent";
+    private static final String DO_NOT_SELL_KEY = "com.applovin.sdk.compliance.is_do_not_sell";
+    private static final String PREFS_FILE_NAME = "com.applovin.sdk";
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -29,6 +34,7 @@ public class PrivacySettingsActivity
         final TextView consentStatus = findViewById( R.id.consentStatusTextView );
         final RadioGroup doNotSellGroup = findViewById( R.id.doNotSellRadioGroup );
         final TextView doNotSellStatus = findViewById( R.id.doNotSellStatusTextView );
+        final android.widget.Button resetButton = findViewById( R.id.resetButton );
 
         refreshUI( consentGroup, consentStatus, doNotSellGroup, doNotSellStatus );
 
@@ -41,6 +47,12 @@ public class PrivacySettingsActivity
         doNotSellGroup.setOnCheckedChangeListener( (group, checkedId) -> {
             if ( checkedId == R.id.doNotSellNo )       AppLovinPrivacySettings.setDoNotSell( false );
             else if ( checkedId == R.id.doNotSellYes ) AppLovinPrivacySettings.setDoNotSell( true );
+            refreshUI( consentGroup, consentStatus, doNotSellGroup, doNotSellStatus );
+        } );
+
+        resetButton.setOnClickListener( v -> {
+            getSharedPreferences( PREFS_FILE_NAME, MODE_PRIVATE )
+                    .edit().remove( CONSENT_KEY ).remove( DO_NOT_SELL_KEY ).apply();
             refreshUI( consentGroup, consentStatus, doNotSellGroup, doNotSellStatus );
         } );
     }
