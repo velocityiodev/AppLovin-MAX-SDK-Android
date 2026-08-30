@@ -15,18 +15,21 @@ import com.applovin.sdk.AppLovinPrivacySettings
  */
 class PrivacySettingsActivity : AppCompatActivity()
 {
+    private lateinit var consentGroup: RadioGroup
+    private lateinit var consentStatus: TextView
+    private lateinit var doNotSellGroup: RadioGroup
+    private lateinit var doNotSellStatus: TextView
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_privacy_settings)
         setTitle(R.string.activity_privacy_settings)
 
-        val consentGroup = findViewById<RadioGroup>(R.id.consentRadioGroup)
-        val consentStatus = findViewById<TextView>(R.id.consentStatusTextView)
-        val doNotSellGroup = findViewById<RadioGroup>(R.id.doNotSellRadioGroup)
-        val doNotSellStatus = findViewById<TextView>(R.id.doNotSellStatusTextView)
-
-        refreshUI(consentGroup, consentStatus, doNotSellGroup, doNotSellStatus)
+        consentGroup = findViewById(R.id.consentRadioGroup)
+        consentStatus = findViewById(R.id.consentStatusTextView)
+        doNotSellGroup = findViewById(R.id.doNotSellRadioGroup)
+        doNotSellStatus = findViewById(R.id.doNotSellStatusTextView)
 
         consentGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId)
@@ -34,7 +37,7 @@ class PrivacySettingsActivity : AppCompatActivity()
                 R.id.consentNo  -> AppLovinPrivacySettings.setHasUserConsent(false)
                 R.id.consentYes -> AppLovinPrivacySettings.setHasUserConsent(true)
             }
-            refreshUI(consentGroup, consentStatus, doNotSellGroup, doNotSellStatus)
+            refreshUI()
         }
 
         doNotSellGroup.setOnCheckedChangeListener { _, checkedId ->
@@ -43,16 +46,17 @@ class PrivacySettingsActivity : AppCompatActivity()
                 R.id.doNotSellNo  -> AppLovinPrivacySettings.setDoNotSell(false)
                 R.id.doNotSellYes -> AppLovinPrivacySettings.setDoNotSell(true)
             }
-            refreshUI(consentGroup, consentStatus, doNotSellGroup, doNotSellStatus)
+            refreshUI()
         }
     }
 
-    private fun refreshUI(
-        consentGroup: RadioGroup,
-        consentStatus: TextView,
-        doNotSellGroup: RadioGroup,
-        doNotSellStatus: TextView
-    )
+    override fun onResume()
+    {
+        super.onResume()
+        refreshUI()
+    }
+
+    private fun refreshUI()
     {
         if (AppLovinPrivacySettings.isUserConsentSet())
             consentGroup.check(if (AppLovinPrivacySettings.hasUserConsent()) R.id.consentYes else R.id.consentNo)

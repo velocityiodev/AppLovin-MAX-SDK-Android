@@ -18,6 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 public class PrivacySettingsActivity
         extends AppCompatActivity
 {
+    private RadioGroup consentGroup;
+    private TextView consentStatus;
+    private RadioGroup doNotSellGroup;
+    private TextView doNotSellStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -25,31 +30,32 @@ public class PrivacySettingsActivity
         setContentView( R.layout.activity_privacy_settings );
         setTitle( R.string.activity_privacy_settings );
 
-        final RadioGroup consentGroup = findViewById( R.id.consentRadioGroup );
-        final TextView consentStatus = findViewById( R.id.consentStatusTextView );
-        final RadioGroup doNotSellGroup = findViewById( R.id.doNotSellRadioGroup );
-        final TextView doNotSellStatus = findViewById( R.id.doNotSellStatusTextView );
-
-        refreshUI( consentGroup, consentStatus, doNotSellGroup, doNotSellStatus );
+        consentGroup = findViewById( R.id.consentRadioGroup );
+        consentStatus = findViewById( R.id.consentStatusTextView );
+        doNotSellGroup = findViewById( R.id.doNotSellRadioGroup );
+        doNotSellStatus = findViewById( R.id.doNotSellStatusTextView );
 
         consentGroup.setOnCheckedChangeListener( (group, checkedId) -> {
             if ( checkedId == R.id.consentNo )       AppLovinPrivacySettings.setHasUserConsent( false );
             else if ( checkedId == R.id.consentYes ) AppLovinPrivacySettings.setHasUserConsent( true );
-            refreshUI( consentGroup, consentStatus, doNotSellGroup, doNotSellStatus );
+            refreshUI();
         } );
 
         doNotSellGroup.setOnCheckedChangeListener( (group, checkedId) -> {
             if ( checkedId == R.id.doNotSellNo )       AppLovinPrivacySettings.setDoNotSell( false );
             else if ( checkedId == R.id.doNotSellYes ) AppLovinPrivacySettings.setDoNotSell( true );
-            refreshUI( consentGroup, consentStatus, doNotSellGroup, doNotSellStatus );
+            refreshUI();
         } );
     }
 
-    private void refreshUI(
-            final RadioGroup consentGroup,
-            final TextView consentStatus,
-            final RadioGroup doNotSellGroup,
-            final TextView doNotSellStatus)
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        refreshUI();
+    }
+
+    private void refreshUI()
     {
         if ( AppLovinPrivacySettings.isUserConsentSet() )
             consentGroup.check( AppLovinPrivacySettings.hasUserConsent() ? R.id.consentYes : R.id.consentNo );
