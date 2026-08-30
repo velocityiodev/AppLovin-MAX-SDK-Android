@@ -54,21 +54,21 @@ class PrivacySettingsActivity : AppCompatActivity()
     )
     {
         val consentSet = AppLovinPrivacySettings.isUserConsentSet()
+        consentGroup.findViewById<android.widget.RadioButton>(R.id.consentNotSet).isEnabled = !consentSet
         consentGroup.check(
             if (!consentSet) R.id.consentNotSet
             else if (AppLovinPrivacySettings.hasUserConsent()) R.id.consentYes
             else R.id.consentNo
         )
-        consentGroup.findViewById<android.widget.RadioButton>(R.id.consentNotSet).isEnabled = !consentSet
         updateStatus(consentStatus, consentSet, AppLovinPrivacySettings.hasUserConsent())
 
         val doNotSellSet = AppLovinPrivacySettings.isDoNotSellSet()
+        doNotSellGroup.findViewById<android.widget.RadioButton>(R.id.doNotSellNotSet).isEnabled = !doNotSellSet
         doNotSellGroup.check(
             if (!doNotSellSet) R.id.doNotSellNotSet
             else if (AppLovinPrivacySettings.isDoNotSell()) R.id.doNotSellYes
             else R.id.doNotSellNo
         )
-        doNotSellGroup.findViewById<android.widget.RadioButton>(R.id.doNotSellNotSet).isEnabled = !doNotSellSet
         updateStatus(doNotSellStatus, doNotSellSet, AppLovinPrivacySettings.isDoNotSell())
     }
 

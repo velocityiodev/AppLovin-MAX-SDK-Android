@@ -52,21 +52,21 @@ public class PrivacySettingsActivity
             final TextView doNotSellStatus)
     {
         final boolean consentSet = AppLovinPrivacySettings.isUserConsentSet();
+        final RadioButton consentNotSetButton = consentGroup.findViewById( R.id.consentNotSet );
+        consentNotSetButton.setEnabled( !consentSet );
         consentGroup.check(
                 !consentSet ? R.id.consentNotSet
                 : AppLovinPrivacySettings.hasUserConsent() ? R.id.consentYes : R.id.consentNo
         );
-        final RadioButton consentNotSetButton = consentGroup.findViewById( R.id.consentNotSet );
-        consentNotSetButton.setEnabled( !consentSet );
         updateStatus( consentStatus, consentSet, AppLovinPrivacySettings.hasUserConsent() );
 
         final boolean doNotSellSet = AppLovinPrivacySettings.isDoNotSellSet();
+        final RadioButton doNotSellNotSetButton = doNotSellGroup.findViewById( R.id.doNotSellNotSet );
+        doNotSellNotSetButton.setEnabled( !doNotSellSet );
         doNotSellGroup.check(
                 !doNotSellSet ? R.id.doNotSellNotSet
                 : AppLovinPrivacySettings.isDoNotSell() ? R.id.doNotSellYes : R.id.doNotSellNo
         );
-        final RadioButton doNotSellNotSetButton = doNotSellGroup.findViewById( R.id.doNotSellNotSet );
-        doNotSellNotSetButton.setEnabled( !doNotSellSet );
         updateStatus( doNotSellStatus, doNotSellSet, AppLovinPrivacySettings.isDoNotSell() );
     }
 
